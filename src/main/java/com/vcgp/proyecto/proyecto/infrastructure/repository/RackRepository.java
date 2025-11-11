@@ -1,6 +1,6 @@
-package com.vcgp.proyecto.proyecto.repository;
+package com.vcgp.proyecto.proyecto.infrastructure.repository;
 
-import com.vcgp.proyecto.proyecto.models.Rack;
+import com.vcgp.proyecto.proyecto.infrastructure.entity.Rack;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RackRepository extends JpaRepository<Rack, Long> {
