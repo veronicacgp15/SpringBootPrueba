@@ -16,10 +16,7 @@ import static com.vcgp.proyecto.proyecto.infrastructure.utils.Constans.CLIENT;
 @Service
 public class ClientServiceImpl implements ClientService {
 
-   // public static final String CLIENT = "Client";
-    //Inyeccion de dependencia utilizando el constructor
     private final ClientRepository clientRepository;
-
 
     public ClientServiceImpl(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
