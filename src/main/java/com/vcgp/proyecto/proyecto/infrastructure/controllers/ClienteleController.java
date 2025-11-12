@@ -21,44 +21,49 @@ public class ClienteleController {
 
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<ClientResponseDTO> clients(){
-        return clientService.findAll();
+    public ResponseEntity<List<ClientResponseDTO>> clients(){
+        List<ClientResponseDTO> clientList = clientService.findAll();
+        return ResponseEntity.ok(clientList);
     }
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public ClientResponseDTO obtenerPorId(@PathVariable Long id) {
-        return clientService.findById(id);
+    public ResponseEntity<?> obtenerPorId(@PathVariable Long id) {
+        try {
+            ClientResponseDTO client = clientService.findById(id);
+            return ResponseEntity.ok(client);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ClientResponseDTO create(@Validated @RequestBody ClientResponseDTO clientRequestDTO) {
-        return clientService.create(clientRequestDTO);
+    public ResponseEntity<ClientResponseDTO> create(@Validated @RequestBody ClientResponseDTO clientRequestDTO) {
+        ClientResponseDTO createdClient = clientService.create(clientRequestDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdClient);
     }
 
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<ClientResponseDTO> edit(@PathVariable Long id, @Validated @RequestBody ClientResponseDTO clientRequestDTO) {
-        ClientResponseDTO editedClient = clientService.edit(id, clientRequestDTO);
-        return ResponseEntity.ok(editedClient);
+    public ResponseEntity<?> edit(@PathVariable Long id, @Validated @RequestBody ClientResponseDTO clientRequestDTO) {
+        try {
+            ClientResponseDTO editedClient = clientService.edit(id, clientRequestDTO);
+            return ResponseEntity.ok(editedClient);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        clientService.delete(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        try {
+            clientService.delete(id);
+            return ResponseEntity.noContent().build();
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
-
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(NoSuchElementException.class)
-    public String handleNotFoundException(NoSuchElementException ex) {
-        return ex.getMessage();
-    }
-
 
 
 }

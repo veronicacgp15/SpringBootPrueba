@@ -2,12 +2,15 @@ package com.vcgp.proyecto.proyecto.infrastructure.controllers;
 
 import com.vcgp.proyecto.proyecto.application.dto.WarehouseSimpleDTO;
 import com.vcgp.proyecto.proyecto.application.usecase.WarehouseService;
+import com.vcgp.proyecto.proyecto.infrastructure.utils.SuccessMessages;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+
+import static com.vcgp.proyecto.proyecto.infrastructure.utils.Constans.WAREHOUSE;
 
 
 @RestController
@@ -54,8 +57,8 @@ public class WarehouseController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteWarehouse(@PathVariable Long id) {
           try {warehouseService.delete(id);
-            String successMessage = "WarehouseService con ID: " + id + " eliminado correctamente.";
-            return ResponseEntity.ok(successMessage);
+              String successMessage = SuccessMessages.entityDeleted(WAREHOUSE, id);
+              return ResponseEntity.ok(successMessage);
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }

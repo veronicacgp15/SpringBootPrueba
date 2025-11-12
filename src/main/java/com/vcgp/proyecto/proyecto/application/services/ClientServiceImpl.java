@@ -11,9 +11,12 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
+import static com.vcgp.proyecto.proyecto.infrastructure.utils.Constans.CLIENT;
+
 @Service
 public class ClientServiceImpl implements ClientService {
 
+   // public static final String CLIENT = "Client";
     //Inyeccion de dependencia utilizando el constructor
     private final ClientRepository clientRepository;
 
@@ -35,7 +38,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public ClientResponseDTO findById(Long id) {
         Client client = clientRepository.findById(id)
-        .orElseThrow(() -> new NoSuchElementException(ErrorMessages.notFoundById("Client", id)));
+        .orElseThrow(() -> new NoSuchElementException(ErrorMessages.notFoundById(CLIENT, id)));
 
 
         return ClientResponseDTO.fromEntity(client);
@@ -53,7 +56,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public ClientResponseDTO edit(Long id, ClientResponseDTO clientRequestDTO) {
         Client existingClient = clientRepository.findById(id)
-        .orElseThrow(() -> new NoSuchElementException(ErrorMessages.notFoundById("Client", id)));
+        .orElseThrow(() -> new NoSuchElementException(ErrorMessages.notFoundById(CLIENT, id)));
 
         existingClient.setName(clientRequestDTO.toEntity().getName());
         Client updatedClient = clientRepository.save(existingClient);
@@ -62,7 +65,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public void delete(Long id) {
         if (!this.clientRepository.existsById(id)) {
-            throw new NoSuchElementException(ErrorMessages.deleteNotFound("Client", id));
+            throw new NoSuchElementException(ErrorMessages.deleteNotFound(CLIENT, id));
         }
         this.clientRepository.deleteById(id);
     }

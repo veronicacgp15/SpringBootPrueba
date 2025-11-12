@@ -7,12 +7,16 @@ import com.vcgp.proyecto.proyecto.infrastructure.entity.Warehouse;
 import com.vcgp.proyecto.proyecto.infrastructure.repository.RackRepository;
 import com.vcgp.proyecto.proyecto.infrastructure.repository.WarehouseRepository;
 import com.vcgp.proyecto.proyecto.infrastructure.utils.ErrorMessages;
+
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
+
+import static com.vcgp.proyecto.proyecto.infrastructure.utils.Constans.RACK;
+import static com.vcgp.proyecto.proyecto.infrastructure.utils.Constans.WAREHOUSE;
 
 @Service
 public class RackServiceImpl implements RackService {
@@ -45,7 +49,7 @@ public class RackServiceImpl implements RackService {
     public RackResponseDTO create(RackResponseDTO requestRack) {
         Warehouse warehouse = warehouseRepository.findById(requestRack.warehouseId())
                 .orElseThrow(() -> new NoSuchElementException(
-                        ErrorMessages.associationNotFound("Warehouse", requestRack.warehouseId())));
+                        ErrorMessages.associationNotFound(WAREHOUSE, requestRack.warehouseId())));
 
         Rack rackToSave = requestRack.toEntity();
         rackToSave.setWarehouse(warehouse);
@@ -57,7 +61,7 @@ public class RackServiceImpl implements RackService {
     @Transactional
     public RackResponseDTO edit(Long id, RackResponseDTO requestRack) {
         Rack existingRack = this.rackRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException(ErrorMessages.editNotFound("Rack", id)));
+                .orElseThrow(() -> new NoSuchElementException(ErrorMessages.editNotFound(RACK, id)));
 
         existingRack.setTipo(requestRack.tipo());
         existingRack.setName(requestRack.name());
@@ -65,9 +69,8 @@ public class RackServiceImpl implements RackService {
         Long existingWarehouseId = existingRack.getWarehouse() != null ? existingRack.getWarehouse().getId() : null;
         if (requestRack.warehouseId() != null && !requestRack.warehouseId().equals(existingWarehouseId)) {
             Warehouse newWarehouse = warehouseRepository.findById(requestRack.warehouseId())
-                    // 💡 CORREGIDO: Ahora el mensaje de error se refiere al 'Warehouse' que no se encontró.
                     .orElseThrow(() -> new NoSuchElementException(
-                            ErrorMessages.associationNotFound("Warehouse", requestRack.warehouseId())
+                            ErrorMessages.associationNotFound(WAREHOUSE, requestRack.warehouseId())
                     ));
             existingRack.setWarehouse(newWarehouse);
         }
@@ -79,7 +82,7 @@ public class RackServiceImpl implements RackService {
     @Override
     public void delete(Long id) {
         if (!this.rackRepository.existsById(id)) {
-            throw new NoSuchElementException(ErrorMessages.deleteNotFound("Rack", id));
+            throw new NoSuchElementException(ErrorMessages.deleteNotFound(RACK, id));
         }
         this.rackRepository.deleteById(id);
     }

@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
+import static com.vcgp.proyecto.proyecto.infrastructure.utils.Constans.CLIENT;
+import static com.vcgp.proyecto.proyecto.infrastructure.utils.Constans.WAREHOUSE;
+
 @Service
 public class WarehouseServiceImpl implements WarehouseService {
 
@@ -37,7 +40,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     public WarehouseSimpleDTO findById(Long id) {
         Warehouse warehouse = this.warehouseRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException(
-                        ErrorMessages.notFoundById("Warehouse", id)
+                        ErrorMessages.notFoundById(WAREHOUSE, id)
                 ));
         return WarehouseSimpleDTO.fromEntity(warehouse);
     }
@@ -46,7 +49,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     public WarehouseSimpleDTO create(WarehouseSimpleDTO requestWarehouse) {
         Client client = clientRepository.findById(requestWarehouse.client_id())
                 .orElseThrow(() -> new NoSuchElementException(
-                        ErrorMessages.associationNotFound("Client", requestWarehouse.client_id())
+                        ErrorMessages.associationNotFound(CLIENT, requestWarehouse.client_id())
                 ));
 
         Warehouse warehouseToSave = new Warehouse();
@@ -64,7 +67,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     public WarehouseSimpleDTO edit(Long id, WarehouseSimpleDTO requestWarehouse) {
         Warehouse existingWarehouse = this.warehouseRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException(
-                        ErrorMessages.editNotFound("Warehouse", id)
+                        ErrorMessages.editNotFound(WAREHOUSE, id)
                 ));
 
         existingWarehouse.setName(requestWarehouse.name());
@@ -87,7 +90,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Override
     public void delete(Long id) {
         if (!this.warehouseRepository.existsById(id)) {
-            throw new NoSuchElementException(ErrorMessages.deleteNotFound("Warehouse", id));
+            throw new NoSuchElementException(ErrorMessages.deleteNotFound(WAREHOUSE, id));
         }
         this.warehouseRepository.deleteById(id);
     }
