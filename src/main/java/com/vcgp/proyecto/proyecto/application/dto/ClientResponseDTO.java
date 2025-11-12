@@ -3,10 +3,11 @@ package com.vcgp.proyecto.proyecto.application.dto;
 import com.vcgp.proyecto.proyecto.infrastructure.entity.Client;
 
 public record ClientResponseDTO (Long id,
-                                 String name){
+                                 String name)
+
+{
 
     public static ClientResponseDTO fromEntity(Client clientEntity) {
-        // Usa el constructor generado automáticamente por el Record
         return new ClientResponseDTO(
                 clientEntity.getId(),
                 clientEntity.getName()

@@ -4,6 +4,7 @@ import com.vcgp.proyecto.proyecto.application.dto.ClientResponseDTO;
 import com.vcgp.proyecto.proyecto.application.usecase.ClientService;
 import com.vcgp.proyecto.proyecto.infrastructure.entity.Client;
 import com.vcgp.proyecto.proyecto.infrastructure.repository.ClientRepository;
+import com.vcgp.proyecto.proyecto.infrastructure.utils.ErrorMessages;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,7 +35,9 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public ClientResponseDTO findById(Long id) {
         Client client = clientRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Client not found with ID: " + id));
+        .orElseThrow(() -> new NoSuchElementException(ErrorMessages.notFoundById("Client", id)));
+
+
         return ClientResponseDTO.fromEntity(client);
     }
 
@@ -46,25 +49,28 @@ public class ClientServiceImpl implements ClientService {
         return ClientResponseDTO.fromEntity(savedClient);
     }
 
+
     @Override
-    public ClientResponseDTO edit(Long id, ClientResponseDTO requestclient) {
+    public ClientResponseDTO edit(Long id, ClientResponseDTO clientRequestDTO) {
         Client existingClient = clientRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Cliente no encontrado: " + id));
-                existingClient.setName(requestclient.name());
+        .orElseThrow(() -> new NoSuchElementException(ErrorMessages.notFoundById("Client", id)));
 
+        existingClient.setName(clientRequestDTO.toEntity().getName());
         Client updatedClient = clientRepository.save(existingClient);
-
         return ClientResponseDTO.fromEntity(updatedClient);
     }
-
     @Override
     public void delete(Long id) {
-        if (!clientRepository.existsById(id)) {
-            throw new NoSuchElementException("Client not found with ID: " + id);
+        if (!this.clientRepository.existsById(id)) {
+            throw new NoSuchElementException(ErrorMessages.deleteNotFound("Client", id));
         }
-
-        clientRepository.deleteById(id);
+        this.clientRepository.deleteById(id);
     }
+
+
+
+
+
 
 
 }

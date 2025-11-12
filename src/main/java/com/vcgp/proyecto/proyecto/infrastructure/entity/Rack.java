@@ -1,28 +1,17 @@
 package com.vcgp.proyecto.proyecto.infrastructure.entity;
 
-/*
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import org.springframework.data.annotation.Id; */
-
-
 import com.vcgp.proyecto.proyecto.infrastructure.enums.Section;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "racks")
-@Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class Rack {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Rack extends IdentifiableEntity {
 
     @Enumerated(EnumType.STRING)
     private Section tipo;
@@ -31,5 +20,20 @@ public class Rack {
     @JoinColumn(name="warehouse_id", nullable = false)
     private Warehouse warehouse;
 
+    public Section getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Section tipo) {
+        this.tipo = tipo;
+    }
+
+    public Warehouse getWarehouse() {
+        return warehouse;
+    }
+
+    public void setWarehouse(Warehouse warehouse) {
+        this.warehouse = warehouse;
+    }
 
 }

@@ -3,6 +3,7 @@ package com.vcgp.proyecto.proyecto.infrastructure.controllers;
 import com.vcgp.proyecto.proyecto.application.dto.ClientResponseDTO;
 import com.vcgp.proyecto.proyecto.application.usecase.ClientService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -38,17 +39,24 @@ public class ClienteleController {
     }
 
 
+
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ClientResponseDTO edit(@PathVariable Long id, @Validated @RequestBody ClientResponseDTO clientRequestDTO) {
-        return clientService.edit(id, clientRequestDTO);
+    public ResponseEntity<ClientResponseDTO> edit(@PathVariable Long id, @Validated @RequestBody ClientResponseDTO clientRequestDTO) {
+        ClientResponseDTO editedClient = clientService.edit(id, clientRequestDTO);
+        return ResponseEntity.ok(editedClient);
     }
 
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         clientService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NoSuchElementException.class)
+    public String handleNotFoundException(NoSuchElementException ex) {
+        return ex.getMessage();
     }
 
 
