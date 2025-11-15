@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: proyecto
+  # CONFIGURACIÓN DE LA CONEXIÓN A LA BASE DE DATOS (DataSource)
+  datasource:
+    url: jdbc:mysql://localhost:3306/proyectomg
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # CONFIGURACIÓN DE JPA Y HIBERNATE (El "Mapeador")
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
