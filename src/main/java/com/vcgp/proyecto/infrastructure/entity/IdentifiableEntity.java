@@ -26,30 +26,5 @@ public abstract class IdentifiableEntity {
     @Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ .]+$", message = "El nombre solo puede contener letras, espacios y puntos.")
     private String name;
 
-/*
-    public IdentifiableEntity() {
-    }
 
-    public IdentifiableEntity(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
- */
 }

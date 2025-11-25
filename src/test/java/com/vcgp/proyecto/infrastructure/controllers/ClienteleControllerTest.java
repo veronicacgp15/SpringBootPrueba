@@ -57,7 +57,6 @@ class ClienteleControllerTest {
         clientRequestDTO = new ClientRequestDTO("Nuevo Cliente");
     }
 
-
     @Test
     @DisplayName("GET /api/clients - Debe devolver una lista de clientes y estado 200 OK")
     void shouldFindAllClients() throws Exception {

@@ -21,23 +21,6 @@ public class Rack extends IdentifiableEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="warehouse_id", nullable = false)
     private Warehouse warehouse;
-/*
-    public Section getTipo() {
-        return tipo;
-    }
 
-    public void setTipo(Section tipo) {
-        this.tipo = tipo;
-    }
-
-    public Warehouse getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(Warehouse warehouse) {
-        this.warehouse = warehouse;
-    }
-
- */
 
 }

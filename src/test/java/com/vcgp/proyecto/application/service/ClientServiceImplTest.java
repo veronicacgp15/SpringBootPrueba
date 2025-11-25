@@ -83,23 +83,21 @@ class ClientServiceImplTest {
     @Test
     @DisplayName("Debería crear y devolver un nuevo cliente")
     void shouldCreateAndReturnNewClient() {
-        // Given: Un DTO de PETICIÓN para crear el cliente
+        // Given
         ClientRequestDTO requestDTO = new ClientRequestDTO(TEST_CLIENT);
 
-        // El método toEntity() del DTO de petición crea un cliente sin ID
         Client clientToSave = requestDTO.toEntity();
 
-        // El repositorio devuelve el cliente ya guardado, con ID
         Client savedClient = new Client();
         savedClient.setId(1L);
         savedClient.setName(TEST_CLIENT);
 
         when(clientRepository.save(any(Client.class))).thenReturn(savedClient);
 
-        // When: Llamamos al servicio con el DTO de PETICIÓN
+        // When
         ClientResponseDTO result = clientService.create(requestDTO);
 
-        // Then: El resultado es un DTO de RESPUESTA con los datos correctos
+        // Then
         assertNotNull(result);
         assertEquals(1L, result.id());
         assertEquals(TEST_CLIENT, result.name());
@@ -109,13 +107,13 @@ class ClientServiceImplTest {
     @Test
     @DisplayName("Debería editar un cliente existente")
     void shouldEditExistingClient() {
-        // Given: Un DTO de PETICIÓN con los datos actualizados
+        // Given
         ClientRequestDTO updatedRequestDto = new ClientRequestDTO(UPDATED_NAME);
 
         when(clientRepository.findById(1L)).thenReturn(Optional.of(client));
         when(clientRepository.save(any(Client.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
-        // When: Llamamos al servicio con el DTO de PETICIÓN
+        // When
         ClientResponseDTO result = clientService.edit(1L, updatedRequestDto);
 
         // Then
@@ -131,7 +129,7 @@ class ClientServiceImplTest {
         // Given
         when(clientRepository.existsById(1L)).thenReturn(true);
 
-        doNothing().when(clientRepository).deleteById(1L); // Para métodos void (que no devuelven nada), usamos doNothing()
+        doNothing().when(clientRepository).deleteById(1L);
 
         // When
         clientService.delete(1L);

@@ -71,7 +71,7 @@ class WarehouseControllerTest {
         // WHEN & THEN
         mockMvc.perform(get(WAREHOUSE_BASE_URL))
                 .andExpect(status().isInternalServerError())
-                .andExpect(content().string("")); // Sin cuerpo en el error 500
+                .andExpect(content().string(""));
     }
 
 

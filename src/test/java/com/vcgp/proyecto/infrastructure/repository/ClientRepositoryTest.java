@@ -70,8 +70,13 @@ class ClientRepositoryTest {
         Optional<Client> foundClient = clientRepository.findByNameAndIdNot("Client A", savedClientToIgnore.getId());
 
         // THEN:
-        assertThat(foundClient).isPresent();
-        assertThat(foundClient.get().getName()).isEqualTo("Client A");
+        //assertThat(foundClient).isPresent();
+        //assertThat(foundClient.get().getName()).isEqualTo("Client A");
+        // THEN: esta es una manera mas eficiente de comparar
+        assertThat(foundClient).isPresent()
+                .get()
+                .extracting(Client::getName)
+                .isEqualTo("Client A");
     }
 
     @Test

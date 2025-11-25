@@ -11,9 +11,7 @@ public record ClientRequestDTO(
         @Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ .]+$", message = "El nombre solo puede contener letras, espacios y puntos.")
         String name
 ) {
-    /**
-     * Convierte este DTO a una entidad Client para guardarla.
-     */
+
     public Client toEntity() {
         Client client = new Client();
         client.setName(this.name);

@@ -64,7 +64,6 @@ class WarehouseServiceImpTest {
 
         dtoToCreate = new WarehouseSimpleDTO(null, "New Warehouse", 10L,"Furniture", 2000L);
 
-
     }
 
     @Test
@@ -82,7 +81,6 @@ class WarehouseServiceImpTest {
         assertEquals("Main Warehouse", result.get(0).name());
         assertEquals(10L, result.get(1).client_id(), "El ID del cliente del segundo almacén no coincide");
 
-        // Verificamos que el método del repositorio fue llamado
         verify(warehouseRepository, times(1)).findAll();
     }
 
@@ -140,7 +138,6 @@ class WarehouseServiceImpTest {
         // Given
         when(clientRepository.findById(dtoToCreate.client_id())).thenReturn(Optional.of(testClient));
 
-        // 2. Simulamos la operación de guardado en la base de datos
         when(warehouseRepository.save(any(Warehouse.class))).thenAnswer(invocation -> {
             Warehouse warehouse = invocation.getArgument(0);
             warehouse.setId(3L); // Simulamos que la BD le asigna un ID
@@ -176,7 +173,6 @@ class WarehouseServiceImpTest {
 
         assertEquals(ErrorMessages.associationNotFound(CLIENT, nonExistentClientId), exception.getMessage());
 
-        // Verificamos que el guardado nunca se intentó
         verify(warehouseRepository, never()).save(any(Warehouse.class));
     }
 

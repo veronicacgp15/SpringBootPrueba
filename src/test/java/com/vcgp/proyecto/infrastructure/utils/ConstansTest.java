@@ -25,5 +25,13 @@ public class ConstansTest {
     public static final String WAREHOUSE_BASE_URL = "/api/warehouses";
     public static final String WAREHOSE_TEST_NAME = "Almacén Central de Pruebas";
     public static final String ALMACEN_NO_ENCONTRADO = "Almacén no encontrado";
+    public static final String PETRA = "Petra";
+    public static final String EL_NOMBRE_NO_COINCIDE = "El nombre no coincide";
+
+    public static final long EXPECTED = 500L;
+    public static final String EL_CLIENTE_NO_DEBERÍA_SER_NULO = "El cliente no debería ser nulo";
+    public static final String EL_ID_DEL_CLIENTE_NO_COINCIDE = "El ID del cliente no coincide";
+
+    public static final String Warehouse_ATRIBUTO_FAMILY = "Electrónica";
 
 }

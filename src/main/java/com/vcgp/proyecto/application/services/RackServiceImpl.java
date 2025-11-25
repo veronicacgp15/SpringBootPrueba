@@ -48,7 +48,7 @@ public class RackServiceImpl implements RackService {
      }
 
     @Override
-    @Transactional // Necesario porque interactúa con dos repositorios
+    @Transactional
     public RackResponseDTO create(RackResponseDTO requestRack) {
         Warehouse warehouse = warehouseRepository.findById(requestRack.warehouseId())
                 .orElseThrow(() -> new NoSuchElementException(

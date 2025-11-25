@@ -14,14 +14,7 @@ public record ClientResponseDTO (Long id,
                 clientEntity.getName()
         );
     }
-//    public Client toEntity() {
-//        Client client = new Client();
-//        if (this.id != null) {
-//            client.setId(this.id);
-//        }
-//        client.setName(this.name);
-//        return client;
-//    }
+
 
 }
 

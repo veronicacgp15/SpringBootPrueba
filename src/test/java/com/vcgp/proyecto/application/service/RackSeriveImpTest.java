@@ -220,8 +220,6 @@ class RackSeriveImpTest {
         }, "El mensaje de error debe ser descriptivo");
 
         assertEquals(ErrorMessages.deleteNotFound(RACK, nonExistentRackId), thrown.getMessage());
-
-
         verify(rackRepository, times(1)).existsById(nonExistentRackId);
         verify(rackRepository, never()).deleteById(nonExistentRackId);
     }
