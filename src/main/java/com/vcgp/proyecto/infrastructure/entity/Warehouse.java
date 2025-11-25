@@ -1,17 +1,18 @@
 package com.vcgp.proyecto.infrastructure.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "warehouses")
-@Data
-@SuperBuilder
+@Getter // Usa Getter
+@Setter // Usa Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(callSuper = true) // Importante para herencia
+@EqualsAndHashCode(callSuper = true) // Importante para herencia
+@SuperBuilder
 public class Warehouse extends IdentifiableEntity {
 
     @ManyToOne
@@ -20,7 +21,7 @@ public class Warehouse extends IdentifiableEntity {
 
     private String family;
     private Long size;
-
+/*
     public Client getClient() {
         return client;
     }
@@ -44,4 +45,6 @@ public class Warehouse extends IdentifiableEntity {
     public void setSize(Long size) {
         this.size = size;
     }
+
+ */
 }

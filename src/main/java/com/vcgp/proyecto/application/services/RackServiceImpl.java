@@ -39,10 +39,13 @@ public class RackServiceImpl implements RackService {
 
     }
 
-    @Override
-    public RackResponseDTO findById(Long aLong) {
-        return null;
-    }
+
+     @Override
+     public RackResponseDTO findById(Long id) {
+         Rack rack = rackRepository.findById(id)
+                 .orElseThrow(() -> new NoSuchElementException(ErrorMessages.notFoundById(RACK, id)));
+         return RackResponseDTO.fromEntity(rack);
+     }
 
     @Override
     @Transactional // Necesario porque interactúa con dos repositorios

@@ -6,12 +6,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 @MappedSuperclass
 @NoArgsConstructor
 @SuperBuilder
+@Getter
+@Setter
 public abstract class IdentifiableEntity {
 
     @Id
@@ -30,7 +34,7 @@ public abstract class IdentifiableEntity {
         this.id = id;
         this.name = name;
     }
-*/
+
     public String getName() {
         return name;
     }
@@ -46,4 +50,6 @@ public abstract class IdentifiableEntity {
     public void setId(Long id) {
         this.id = id;
     }
+
+ */
 }

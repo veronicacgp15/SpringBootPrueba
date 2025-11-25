@@ -5,11 +5,14 @@ import lombok.*;
 
 @Entity
 @Table(name = "clients")
-@Data
-@ToString
-@Builder
+@Getter
+@Setter
 @NoArgsConstructor
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public class Client extends IdentifiableEntity {
+
+
 
 
 

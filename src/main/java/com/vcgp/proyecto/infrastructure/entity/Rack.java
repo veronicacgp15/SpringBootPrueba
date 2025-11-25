@@ -6,10 +6,12 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@Table(name = "racks")
-@SuperBuilder
+@Table(name = "racks") // O como se llame tu tabla
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 
 public class Rack extends IdentifiableEntity {
 
@@ -19,7 +21,7 @@ public class Rack extends IdentifiableEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="warehouse_id", nullable = false)
     private Warehouse warehouse;
-
+/*
     public Section getTipo() {
         return tipo;
     }
@@ -35,5 +37,7 @@ public class Rack extends IdentifiableEntity {
     public void setWarehouse(Warehouse warehouse) {
         this.warehouse = warehouse;
     }
+
+ */
 
 }

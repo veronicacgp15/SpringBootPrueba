@@ -1,5 +1,6 @@
 package com.vcgp.proyecto.infrastructure.controllers;
 
+import com.vcgp.proyecto.application.dto.ClientRequestDTO;
 import com.vcgp.proyecto.application.dto.ClientResponseDTO;
 import com.vcgp.proyecto.application.usecase.ClientService;
 import org.springframework.http.HttpStatus;
@@ -37,22 +38,24 @@ public class ClienteleController {
     }
 
     @PostMapping
-    public ResponseEntity<ClientResponseDTO> create(@Validated @RequestBody ClientResponseDTO clientRequestDTO) {
-        ClientResponseDTO createdClient = clientService.create(clientRequestDTO);
+    public ResponseEntity<ClientResponseDTO> create(@Validated @RequestBody ClientRequestDTO requestDTO) {
+
+        ClientResponseDTO createdClient = clientService.create(requestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdClient);
     }
 
 
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> edit(@PathVariable Long id, @Validated @RequestBody ClientResponseDTO clientRequestDTO) {
-        try {
-            ClientResponseDTO editedClient = clientService.edit(id, clientRequestDTO);
-            return ResponseEntity.ok(editedClient);
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+@PutMapping("/{id}")
+public ResponseEntity<?> edit(@PathVariable Long id, @Validated @RequestBody ClientRequestDTO requestDTO) {
+    try {
+
+        ClientResponseDTO editedClient = clientService.edit(id, requestDTO);
+        return ResponseEntity.ok(editedClient);
+    } catch (NoSuchElementException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
+}
 
 
     @DeleteMapping("/{id}")
