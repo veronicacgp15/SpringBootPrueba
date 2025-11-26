@@ -1,0 +1,24 @@
+# src/test/resources/application-test.yml
+
+spring:
+  # Configuración para que los tests se conecten a tu MySQL local
+  datasource:
+    # ¡IMPORTANTE! Usa una base de datos separada para los tests.
+    # Cambia 'proyectomg_test', 'root' y tu contraseña según tu configuración.
+    url: jdbc:mysql://localhost:3306/proyectomg_test?createDatabaseIfNotExist=true
+    username: root
+    password: "" # <-- Pon tu contraseña de MySQL aquí si tienes una
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      # 'create-drop' es crucial: crea las tablas al inicio de los tests y las borra al final.
+      # Esto asegura que cada ejecución de tests sea limpia.
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+# Esta línea le dice a Spring que no intente reemplazar nuestra configuración de BD.
+spring.test.database.replace: none

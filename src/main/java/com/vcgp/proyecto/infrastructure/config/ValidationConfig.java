@@ -1,0 +1,17 @@
+package com.vcgp.proyecto.infrastructure.config;
+
+import jakarta.validation.Validator;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+
+@Configuration
+public class ValidationConfig {
+    @Bean
+    public Validator validator(SpringConstraintValidatorFactory constraintValidatorFactory) {
+        LocalValidatorFactoryBean factoryBean = new LocalValidatorFactoryBean();
+        factoryBean.setConstraintValidatorFactory(constraintValidatorFactory);
+        return factoryBean;
+    }
+}
+
